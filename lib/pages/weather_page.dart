@@ -3,7 +3,7 @@ import 'package:weather/models/weather_model.dart';
 import 'package:weather/services/weather_services.dart';
 
 class WeatherPage extends StatefulWidget {
-  const WeatherPage({super.key});
+  const WeatherPage({Key? key}) : super(key: key);
 
   @override
   State<WeatherPage> createState() => _WeatherPageState();
@@ -11,7 +11,7 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   // apikey
-  final _weatherService = WeatherService('f5304e17b823cc9392c4a0e102098b2b');
+  final _weatherService = WeatherService('b95622a95da67184fdc377605e261ffe');
   Weather? _weather;
 
   // fetch weather
@@ -32,7 +32,24 @@ class _WeatherPageState extends State<WeatherPage> {
 
   // weather animation
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _fetchWeather();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+        body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(_weather?.cityName ?? "city.."),
+          Text("${_weather?.temperature.round()} C" ?? "loading temp..")
+        ],
+      ),
+    ));
   }
 }
